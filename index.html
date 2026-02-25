@@ -3,95 +3,96 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your Name — CV</title>
+  <title>Kelvin Lee — CV</title>
   <link rel="stylesheet" href="style.css">
-  <meta name="description" content="Curriculum vitae of Your Name — replace with your summary, experience, education, and skills.">
+  <meta name="description" content="Curriculum vitae of Kelvin Lee — biography, projects, contact.">
 </head>
 <body>
   <button id="theme-toggle" aria-label="Toggle theme">🌓</button>
 
-  <main class="container">
-    <header class="profile">
-      <img class="avatar" src="https://via.placeholder.com/160" alt="Kelvin lee">
-      <div class="profile-info">
-        <h1>Your Name</h1>
-        <p class="title">Job Title • Location</p>
-        <p class="contact">
-          <a href="mailto:rylkelvinlee@gmail.com" id="email">rylkelvinlee@gmail.com</a> • <a href="#">+6285167461575</a> • <a href="#">your-website.com</a>
-        </p>
-        <p class="summary">Short professional summary — 1–2 lines explaining who you are, what you do, and the value you deliver. Replace this text with your actual summary.</p>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img class="avatar" src="https://via.placeholder.com/120" alt="Kelvin Lee">
+        <div>
+          <h1>Kelvin Lee</h1>
+          <p class="title">Software Engineer • Batam</p>
+        </div>
       </div>
-    </header>
 
-    <section class="two-col">
-      <section class="main">
-        <h2>Experience</h2>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="#menu" class="nav-link">Menu</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#projects" class="nav-link">Project</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-        <article class="job">
-          <h3>Senior Developer — Acme Corp</h3>
-          <p class="meta">Jan 2020 — Present • City, Country</p>
-          <ul>
-            <li>Led a team of 5 engineers building a SaaS product used by 10k+ customers.</li>
-            <li>Improved performance by 40% through profiling and targeted refactors.</li>
-            <li>Designed and shipped major features from concept to production.</li>
-          </ul>
-        </article>
+  <main class="container">
+    <section id="menu" class="panel">
+      <h2>Short Biography</h2>
+      <p class="lead">Hi — I'm Kelvin, a software engineer from Batam focused on building reliable, maintainable web applications. I enjoy solving problems, learning new technologies, and working with teams to deliver customer value.</p>
 
-        <article class="job">
-          <h3>Software Engineer — Beta LLC</h3>
-          <p class="meta">Jun 2017 — Dec 2019 • City, Country</p>
-          <ul>
-            <li>Built APIs and frontend components for e-commerce platform.</li>
-            <li>Implemented CI/CD pipelines and improved deployment reliability.</li>
-          </ul>
-        </article>
-
-        <h2>Education</h2>
-        <div class="education">
-          <p><strong>B.Sc. in Computer Science</strong>, University Name — 2013–2017</p>
-        </div>
-
-        <h2>Projects</h2>
-        <div class="projects">
-          <article>
-            <h4>Project Name</h4>
-            <p>One-line description and link: <a href="#">github.com/you/project</a></p>
-          </article>
-        </div>
-      </section>
-
-      <aside class="side">
-        <section>
-          <h2>Skills</h2>
-          <ul class="skills">
-            <li>JavaScript / TypeScript</li>
-            <li>React / Vue</li>
-            <li>Node.js • REST • GraphQL</li>
-            <li>SQL • NoSQL • DevOps</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Certifications</h2>
-          <ul>
-            <li>Certified Something — 2021</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Languages</h2>
-          <ul>
-            <li>English — Native</li>
-            <li>Spanish — Professional</li>
-          </ul>
-        </section>
-      </aside>
+      <h3>Skills</h3>
+      <ul class="skills">
+        <li>JavaScript / TypeScript</li>
+        <li>React • Vue</li>
+        <li>Node.js • REST • GraphQL</li>
+        <li>SQL • NoSQL • DevOps</li>
+      </ul>
     </section>
 
-    <footer class="footer">
-      <p>Download as PDF: <a href="#">(Not generated) — use browser Print → Save as PDF</a></p>
-    </footer>
+    <section id="about" class="panel">
+      <h2>About</h2>
+      <p>I have a passion for engineering simple, robust systems and mentoring others. I enjoy writing clean code, automating repetitive work, and improving product quality through tests and CI/CD practices. I'm curious by nature and continually explore modern frontend and backend patterns.</p>
+
+      <h3>Education</h3>
+      <p><strong>B.Sc. in Computer Science</strong>, University Name — 2013–2017</p>
+
+      <h3>Career</h3>
+      <ul>
+        <li><strong>Senior Developer</strong> — Acme Corp (Jan 2020 — Present)</li>
+        <li><strong>Software Engineer</strong> — Beta LLC (Jun 2017 — Dec 2019)</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="panel">
+      <h2>Projects</h2>
+      <article>
+        <h4>Project One</h4>
+        <p>Short description of project one. Link: <a href="#">github.com/you/project-one</a></p>
+      </article>
+      <article>
+        <h4>Project Two</h4>
+        <p>Short description of project two. Link: <a href="#">github.com/you/project-two</a></p>
+      </article>
+    </section>
+
+    <section id="contact" class="panel">
+      <h2>Contact</h2>
+      <p>
+        <a href="mailto:rylkelvinlee@gmail.com" id="email">rylkelvinlee@gmail.com</a><br>
+        <a href="tel:+6285167461575">+62 851 6746 1575</a><br>
+        <a href="#">your-website.com</a>
+      </p>
+
+      <h3>Social</h3>
+      <ul class="social">
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Twitter</a></li>
+      </ul>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Save as PDF: use browser Print (Ctrl+P) → Save as PDF</p>
+    </div>
+  </footer>
 
   <script src="script.js" defer></script>
 </body>
