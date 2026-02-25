@@ -1,30 +1,40 @@
-# CV Website (index.html)
 
-This is a simple, responsive CV website built as static HTML/CSS/JS.
+# CV Website (multi-page)
+
+This repository contains a small static CV website in multiple pages inspired by a clean portfolio layout.
 
 Files
-- `index.html` — main CV page. Replace placeholder content (name, summary, experience, links) with your own.
+- `index.html` — Menu (short biography and skills).
+- `about.html` — Longer about / story, education and career.
+- `projects.html` — Project listings.
+- `contact.html` — Contact details and social links.
 - `style.css` — styling, responsive layout and print rules.
-- `script.js` — small utilities (theme toggle, copy email).
+- `script.js` — small utilities (theme toggle, copy email, active nav highlighting).
 
 How to open
-On Windows PowerShell, run:
+From PowerShell in the folder containing these files run:
 
 ```powershell
 Start-Process .\index.html
 ```
 
-This will open the file in your default browser.
+Or open any of the other pages:
 
-Customize
-- Replace the avatar placeholder image with your own photo (update the `src` on the `<img class="avatar">`).
-- Edit sections under Experience / Education / Projects to match your background.
-- Change colors in `style.css` by editing the CSS variables at the top.
+```powershell
+Start-Process .\about.html
+Start-Process .\projects.html
+Start-Process .\contact.html
+```
 
-Export to PDF (print-ready)
-- In the browser, choose Print (Ctrl+P) → Destination: Save as PDF. The layout includes a print-friendly stylesheet.
+Customization notes
+- Replace the avatar placeholder image with your photo (edit the `src` on the `<img class="avatar">`).
+- Edit the content in each HTML file to match your details (bio, projects, social links).
+- Change the primary color by editing `--accent` in `style.css`.
 
-Next steps you can ask me to do
-- Generate a downloadable PDF version automatically.
-- Add sections (publications, talks, references).
-- Convert this to a one-page printable PDF with tighter typography.
+Printing to PDF
+- Use the browser Print dialog (Ctrl+P) → Save as PDF. The CSS includes print rules to remove UI elements like the theme toggle.
+
+If you'd like, I can:
+- Personalize the content on each page using your exact bio, project descriptions, and social links.
+- Prepare a single-page, print-optimized resume layout for a 1-page PDF.
+- Create a GitHub Pages-ready index (including a `404.html`) and show deployment steps.
