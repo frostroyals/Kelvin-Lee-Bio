@@ -12,29 +12,49 @@
         :root {
             --bg-body: #0a0a0a;
             --bg-sidebar: #0a0a0a;
-            --bg-card: #121212; /* Sedikit lebih terang untuk kartu */
+            --bg-card: #121212;
             --text-primary: #ffffff;
             --text-secondary: #a1a1aa;
             --border-color: #27272a;
             --input-bg: #18181b;
             --accent-blue: #3b82f6;
             --accent-hover: #27272a;
+            --sidebar-width: 280px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         body { background-color: var(--bg-body); color: var(--text-primary); display: flex; min-height: 100vh; overflow-x: hidden; }
         
+        /* --- MOBILE TOGGLE BUTTON (Default Hidden) --- */
+        .mobile-toggle {
+            display: none; /* Sembunyi di laptop */
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background-color: rgba(10, 10, 10, 0.8);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
         /* --- SIDEBAR --- */
         .sidebar {
-            width: 280px;
+            width: var(--sidebar-width);
             padding: 40px 24px;
             border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             position: fixed;
+            top: 0;
+            left: 0;
             height: 100vh;
             background-color: var(--bg-sidebar);
             z-index: 100;
+            transition: transform 0.3s ease-in-out; /* Animasi Slide */
         }
 
         .profile-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; text-align: center; }
@@ -56,34 +76,38 @@
         }
         .nav-item:hover { background-color: var(--accent-hover); color: white; }
         .nav-item.active { background-color: var(--accent-hover); color: white; justify-content: space-between; }
-        .nav-content { display: flex; align-items: center; gap: 12px; }
         .active-indicator { display: none; }
         .nav-item.active .active-indicator { display: block; }
         
         .sidebar-footer { margin-top: auto; font-size: 0.75rem; color: var(--text-secondary); text-align: center; line-height: 1.5; }
 
+        /* --- OVERLAY (Background Gelap saat menu mobile buka) --- */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 90;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active { opacity: 1; visibility: visible; }
+
         /* --- MAIN CONTENT AREA --- */
         .main-content {
-            margin-left: 280px; padding: 60px 80px; width: 100%; max-width: 1200px;
-            opacity: 0; animation: fadeIn 0.5s forwards; /* Animasi saat load */
+            margin-left: var(--sidebar-width); padding: 60px 80px; width: 100%; max-width: 1200px;
+            opacity: 0; animation: fadeIn 0.5s forwards;
         }
 
         @keyframes fadeIn { to { opacity: 1; } }
 
-        /* Sections Handling (SPA Logic) */
-        section { display: none; } /* Sembunyikan semua section */
-        section.active-section { display: block; animation: slideUp 0.4s ease-out; } /* Tampilkan yang aktif */
+        /* Sections Handling */
+        section { display: none; }
+        section.active-section { display: block; animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-header { margin-bottom: 30px; }
+        /* --- STYLES PER PAGE --- */
         .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; color: white; }
-        .section-subtitle { color: var(--text-secondary); font-size: 1rem; }
-
-        /* --- HOME PAGE STYLES --- */
+        .section-subtitle { color: var(--text-secondary); font-size: 1rem; margin-bottom: 30px; }
+        
+        /* Home */
         .hero-banner {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(0,0,0,0) 100%);
             padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 30px;
@@ -92,71 +116,56 @@
         .highlight { color: var(--accent-blue); }
         .btn-primary {
             display: inline-block; background-color: white; color: black; padding: 12px 24px;
-            border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 20px;
-            transition: transform 0.2s;
+            border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 20px; transition: transform 0.2s;
         }
-        .btn-primary:hover { transform: translateY(-2px); }
 
-        /* --- ABOUT & SKILLS --- */
+        /* Grids */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .info-card { background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); }
-        .info-card h3 { margin-bottom: 15px; font-size: 1.2rem; }
-        
         .skills-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; }
-        .skill-tag {
-            padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
-            border-radius: 20px; font-size: 0.9rem; color: var(--text-secondary);
-        }
+        .skill-tag { padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.9rem; color: var(--text-secondary); }
 
-        /* --- PROJECTS & ACHIEVEMENTS GRID --- */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .project-card {
-            background: var(--bg-card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color);
-            transition: transform 0.2s;
-        }
-        .project-card:hover { transform: translateY(-5px); border-color: var(--text-secondary); }
-        .project-img { height: 180px; background-color: #27272a; display: flex; align-items: center; justify-content: center; color: #52525b; font-size: 3rem; }
+        .project-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); transition: transform 0.2s; }
+        .project-img { height: 180px; background-color: #27272a; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #52525b; }
         .project-content { padding: 20px; }
-        .project-content h4 { font-size: 1.2rem; margin-bottom: 8px; }
-        .project-content p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 15px; }
         .project-link { color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
 
-        /* --- CHAT ROOM --- */
-        .chat-container {
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; height: 400px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-secondary);
-        }
-
-        /* --- CONTACT (Dari kode sebelumnya) --- */
+        /* Contact & Chat */
+        .chat-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-secondary); }
+        
         .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 40px; }
-        .card {
-            border-radius: 16px; padding: 30px; height: 200px; position: relative; overflow: hidden;
-            display: flex; flex-direction: column; justify-content: space-between; color: white; transition: transform 0.2s;
-        }
-        .card:hover { transform: translateY(-4px); }
+        .card { border-radius: 16px; padding: 30px; height: 200px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; color: white; }
         .bg-gmail { background: linear-gradient(135deg, #b91c1c, #7f1d1d); }
         .bg-instagram { background: linear-gradient(135deg, #a21caf, #ea580c); }
         .bg-linkedin { background: linear-gradient(135deg, #0284c7, #0c4a6e); }
         .bg-github { background: linear-gradient(135deg, #1e293b, #0f172a); }
         .icon-bg { position: absolute; right: -20px; bottom: -30px; font-size: 140px; opacity: 0.15; transform: rotate(-10deg); pointer-events: none; }
-        .btn-card {
-            background: rgba(255, 255, 255, 0.9); color: black; text-decoration: none; padding: 8px 16px;
-            border-radius: 8px; font-size: 0.85rem; font-weight: 600; width: fit-content; display: inline-flex; align-items: center; gap: 6px;
-        }
-        .form-row { display: flex; gap: 20px; margin-bottom: 20px; }
-        input, textarea {
-            width: 100%; background: var(--input-bg); border: 1px solid var(--border-color); padding: 15px;
-            border-radius: 8px; color: white; outline: none; transition: border-color 0.2s;
-        }
-        input:focus, textarea:focus { border-color: #71717a; }
-        .btn-submit { width: 100%; padding: 15px; background: #27272a; color: white; border: none; border-radius: 8px; cursor: pointer; }
-        .btn-submit:hover { background: #3f3f46; }
+        .btn-card { background: rgba(255, 255, 255, 0.9); color: black; text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; width: fit-content; display: inline-flex; align-items: center; gap: 6px; }
 
-        /* RESPONSIVE */
+        .form-row { display: flex; gap: 20px; margin-bottom: 20px; }
+        input, textarea { width: 100%; background: var(--input-bg); border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; color: white; outline: none; }
+        .btn-submit { width: 100%; padding: 15px; background: #27272a; color: white; border: none; border-radius: 8px; cursor: pointer; }
+
+        /* --- RESPONSIVE / MOBILE STYLES --- */
         @media (max-width: 900px) {
-            body { flex-direction: column; }
-            .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); padding: 20px; }
-            .main-content { margin-left: 0; padding: 30px 20px; }
+            .mobile-toggle { display: block; } /* Munculkan tombol hamburger */
+            
+            .sidebar {
+                transform: translateX(-100%); /* Sembunyikan sidebar ke kiri layar */
+                box-shadow: none;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0); /* Munculkan sidebar kembali */
+                box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+            }
+
+            .main-content {
+                margin-left: 0; /* Konten full width */
+                padding: 80px 20px 40px 20px; /* Tambah padding atas supaya tidak ketutup tombol hamburger */
+            }
+
             .grid-2, .social-grid { grid-template-columns: 1fr; }
             .form-row { flex-direction: column; }
         }
@@ -164,7 +173,13 @@
 </head>
 <body>
 
-    <aside class="sidebar">
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <aside class="sidebar" id="sidebar">
         <div class="profile-section">
             <div class="avatar-container">
                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Cahya" alt="Profile">
@@ -212,112 +227,86 @@
         <section id="home" class="active-section">
             <div class="hero-banner">
                 <h1 class="hero-title">Hi, I'm <span class="highlight">Cahya Winata</span></h1>
-                <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; max-width: 600px;">
-                    Seorang Software Engineer yang berfokus membangun aplikasi web yang handal dan mudah dikelola. Saya suka memecahkan masalah dan mempelajari teknologi baru.
+                <p style="color: var(--text-secondary); line-height: 1.6; max-width: 600px;">
+                    Seorang Software Engineer yang berfokus membangun aplikasi web yang handal.
                 </p>
-                <a href="#" onclick="showSection('contact', document.querySelectorAll('.nav-item')[5])" class="btn-primary">Let's Talk <i class="fas fa-arrow-right"></i></a>
+                <a href="#" onclick="document.querySelectorAll('.nav-item')[5].click()" class="btn-primary">Let's Talk <i class="fas fa-arrow-right"></i></a>
             </div>
-            
             <h2 class="section-title" style="font-size: 1.5rem;">What I Do</h2>
             <div class="grid-2" style="margin-top: 20px;">
                 <div class="info-card">
-                    <h3><i class="fas fa-code highlight"></i> Frontend Dev</h3>
-                    <p style="color: var(--text-secondary);">Membangun antarmuka pengguna yang responsif dan interaktif menggunakan React dan modern CSS.</p>
+                    <h3><i class="fas fa-code highlight"></i> Frontend</h3>
+                    <p style="color: var(--text-secondary);">React, Vue, Modern CSS.</p>
                 </div>
                 <div class="info-card">
-                    <h3><i class="fas fa-server highlight"></i> Backend Dev</h3>
-                    <p style="color: var(--text-secondary);">Mengembangkan API yang cepat dan aman menggunakan Node.js dan database SQL/NoSQL.</p>
+                    <h3><i class="fas fa-server highlight"></i> Backend</h3>
+                    <p style="color: var(--text-secondary);">Node.js, PostgreSQL, API Design.</p>
                 </div>
             </div>
         </section>
 
         <section id="about">
-            <div class="section-header">
-                <h2 class="section-title">About Me</h2>
-                <p class="section-subtitle">A little bit about my background.</p>
-            </div>
-            
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">My background and skills.</p>
             <div class="grid-2">
                 <div>
                     <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px;">
-                        Saya memiliki hasrat untuk merancang sistem yang bersih dan membimbing orang lain. Minat saya meliputi kinerja web, pengalaman pengembang, dan merancang API yang mudah digunakan. Di luar pekerjaan, saya menikmati membaca dan bersepeda.
+                        Saya suka menulis kode yang bersih dan efisien. Berpengalaman bekerja dalam tim remote dan proyek open source.
                     </p>
                     <div class="info-card">
                         <h3>Education</h3>
-                        <p><strong>B.Sc. in Computer Science</strong><br><span style="color: var(--text-secondary);">University Name — 2019-2023</span></p>
+                        <p><strong>B.Sc. Computer Science</strong><br><span style="color: var(--text-secondary);">University Name — 2023</span></p>
                     </div>
                 </div>
-                
                 <div class="info-card">
-                    <h3>Skills & Tools</h3>
+                    <h3>Skills</h3>
                     <ul class="skills-list">
                         <li class="skill-tag">JavaScript</li>
-                        <li class="skill-tag">TypeScript</li>
-                        <li class="skill-tag">React.js</li>
-                        <li class="skill-tag">Next.js</li>
+                        <li class="skill-tag">React</li>
                         <li class="skill-tag">Node.js</li>
-                        <li class="skill-tag">Tailwind CSS</li>
-                        <li class="skill-tag">Git & GitHub</li>
-                        <li class="skill-tag">Figma</li>
+                        <li class="skill-tag">Python</li>
+                        <li class="skill-tag">Git</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="achievements">
-            <div class="section-header">
-                <h2 class="section-title">Achievements</h2>
-                <p class="section-subtitle">Awards and certifications I've earned.</p>
-            </div>
+            <h2 class="section-title">Achievements</h2>
+            <p class="section-subtitle">Awards & Certifications.</p>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-content">
-                        <h4><i class="fas fa-trophy highlight"></i> Hackathon Winner 2025</h4>
-                        <p>Juara 1 dalam kompetisi hackathon nasional kategori Web Development.</p>
+                        <h4><i class="fas fa-trophy highlight"></i> Hackathon Winner</h4>
+                        <p>Juara 1 Nasional 2025.</p>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-content">
-                        <h4><i class="fas fa-certificate highlight"></i> Google Cloud Certified</h4>
-                        <p>Professional Cloud Architect Certification (2024).</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-content">
-                        <h4><i class="fas fa-star highlight"></i> Top Contributor</h4>
-                        <p>Diakui sebagai kontributor open source aktif di komunitas lokal.</p>
+                        <h4><i class="fas fa-certificate highlight"></i> AWS Certified</h4>
+                        <p>Solutions Architect Associate.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="projects">
-            <div class="section-header">
-                <h2 class="section-title">My Projects</h2>
-                <p class="section-subtitle">Some of the code I've written.</p>
-            </div>
+            <h2 class="section-title">My Projects</h2>
+            <p class="section-subtitle">Featured work.</p>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-img"><i class="fas fa-laptop-code"></i></div>
                     <div class="project-content">
-                        <h4>E-Commerce Dashboard</h4>
-                        <p>Dashboard admin lengkap dengan grafik penjualan real-time menggunakan React & Chart.js.</p>
+                        <h4>Dashboard App</h4>
+                        <p>Admin panel dengan React & Chart.js.</p>
                         <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-img"><i class="fas fa-mobile-alt"></i></div>
                     <div class="project-content">
-                        <h4>Task Management App</h4>
-                        <p>Aplikasi produktivitas untuk manajemen tugas tim dengan fitur kolaborasi real-time.</p>
-                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                 <div class="project-card">
-                    <div class="project-img"><i class="fas fa-gamepad"></i></div>
-                    <div class="project-content">
-                        <h4>Indie Game Landing</h4>
-                        <p>Landing page promosi untuk game indie dengan animasi scroll yang halus.</p>
+                        <h4>Mobile Wallet</h4>
+                        <p>Aplikasi dompet digital berbasis Flutter.</p>
                         <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -325,99 +314,83 @@
         </section>
 
         <section id="chat">
-            <div class="section-header">
-                <h2 class="section-title">Chat Room</h2>
-                <p class="section-subtitle">Leave a message for the community.</p>
-            </div>
+            <h2 class="section-title">Chat Room</h2>
+            <p class="section-subtitle">Community Guestbook.</p>
             <div class="chat-container">
                 <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
-                <h3>Guestbook Coming Soon</h3>
-                <p>Fitur chat publik sedang dalam pengembangan.</p>
+                <h3>Coming Soon</h3>
+                <p>Fitur chat sedang dikembangkan.</p>
             </div>
         </section>
 
         <section id="contact">
-            <h2 class="section-title" style="margin-bottom: 30px;">Find me on social media</h2>
+            <h2 class="section-title">Contact Me</h2>
             <div class="social-grid">
                 <div class="card bg-gmail">
                     <i class="fab fa-google icon-bg"></i>
-                    <div class="card-content">
-                        <h3>Stay in Touch</h3>
-                        <p>Reach out via email for inquiries or collaborations.</p>
-                    </div>
-                    <a href="mailto:email@example.com" class="btn-card">Go to Gmail <i class="fas fa-arrow-up-right-from-square"></i></a>
+                    <div class="card-content"><h3>Email</h3><p>Send me an email.</p></div>
+                    <a href="#" class="btn-card">Gmail <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="card bg-instagram">
                     <i class="fab fa-instagram icon-bg"></i>
-                    <div class="card-content">
-                        <h3>Follow Instagram</h3>
-                        <p>See my daily updates.</p>
-                    </div>
-                    <a href="#" class="btn-card">Go to Instagram <i class="fas fa-arrow-up-right-from-square"></i></a>
-                </div>
-                <div class="card bg-linkedin">
-                    <i class="fab fa-linkedin icon-bg"></i>
-                    <div class="card-content">
-                        <h3>Let's Connect</h3>
-                        <p>Connect with me professionally.</p>
-                    </div>
-                    <a href="#" class="btn-card">Go to LinkedIn <i class="fas fa-arrow-up-right-from-square"></i></a>
-                </div>
-                <div class="card bg-github">
-                    <i class="fab fa-github icon-bg"></i>
-                    <div class="card-content">
-                        <h3>Explore Code</h3>
-                        <p>See my open-source projects.</p>
-                    </div>
-                    <a href="#" class="btn-card">Go to Github <i class="fas fa-arrow-up-right-from-square"></i></a>
+                    <div class="card-content"><h3>Instagram</h3><p>Follow me.</p></div>
+                    <a href="#" class="btn-card">Instagram <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-
             <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 40px 0;">
-            
-            <h2 class="section-title">Or send me a message</h2>
             <form action="#">
                 <div class="form-row">
-                    <div class="form-group" style="flex:1">
-                        <input type="text" placeholder="Name" required>
-                    </div>
-                    <div class="form-group" style="flex:1">
-                        <input type="email" placeholder="Email" required>
-                    </div>
+                    <div class="form-group" style="flex:1"><input type="text" placeholder="Name" required></div>
+                    <div class="form-group" style="flex:1"><input type="email" placeholder="Email" required></div>
                 </div>
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <textarea placeholder="Message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="btn-submit">Send Email</button>
+                <div class="form-group" style="margin-bottom: 20px;"><textarea placeholder="Message" rows="5" required></textarea></div>
+                <button type="submit" class="btn-submit">Send Message</button>
             </form>
         </section>
 
     </main>
 
     <script>
+        // Fungsi Navigasi Halaman
         function showSection(sectionId, element) {
-            // 1. Sembunyikan semua section
-            document.querySelectorAll('section').forEach(sec => {
-                sec.classList.remove('active-section');
-            });
-
-            // 2. Tampilkan section yang dipilih
-            const target = document.getElementById(sectionId);
-            if(target) {
-                target.classList.add('active-section');
-            }
-
-            // 3. Update status aktif di menu sidebar
-            // Jika diklik dari tombol 'Let's Talk', kita cari elemen sidebar yang sesuai
+            // Sembunyikan semua section
+            document.querySelectorAll('section').forEach(sec => sec.classList.remove('active-section'));
+            // Tampilkan section target
+            document.getElementById(sectionId).classList.add('active-section');
+            
+            // Update menu aktif
             if (element) {
-                document.querySelectorAll('.nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                });
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
                 element.classList.add('active');
             }
             
-            // Scroll ke atas setiap pindah halaman
+            // Scroll ke atas
             window.scrollTo(0,0);
+
+            // KHUSUS MOBILE: Tutup sidebar setelah menu diklik
+            if (window.innerWidth <= 900) {
+                toggleSidebar();
+            }
+        }
+
+        // Fungsi Buka/Tutup Sidebar di Mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            const toggleBtn = document.querySelector('.mobile-toggle i');
+
+            // Toggle class 'active'
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+
+            // Ganti ikon tombol (Bars <-> Times/X)
+            if (sidebar.classList.contains('active')) {
+                toggleBtn.classList.remove('fa-bars');
+                toggleBtn.classList.add('fa-times');
+            } else {
+                toggleBtn.classList.remove('fa-times');
+                toggleBtn.classList.add('fa-bars');
+            }
         }
     </script>
 </body>
